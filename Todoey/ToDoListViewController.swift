@@ -27,6 +27,7 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         cell.textLabel?.text = itemArray[indexPath.row]
+        cell.accessoryType = .none // deselect everything in the beginning 
         
         return cell
         
@@ -35,9 +36,18 @@ class ToDoListViewController: UITableViewController {
     
     // Action for when user selects a row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(itemArray[indexPath.row])
+        
+        // tableView.cellForRow(at: indexPath) is a reference for cell at indexPath
+        
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
     }
 
 
